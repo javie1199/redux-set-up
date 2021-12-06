@@ -1,8 +1,8 @@
-import "./App.css";
-import store from "./store";
-import { bugAdd, bugRemove, bugResolve } from "./action";
+import configureStore from "./store/configureStore";
+import * as action from "./store/bugs";
 import React from "react";
 
+const store = configureStore();
 class App extends React.Component {
   constructor() {
     super();
@@ -13,12 +13,14 @@ class App extends React.Component {
   // }
 
   componentWillMount() {
-    const unsubscribe = store.subscribe(() => {
-      console.log("store changed");
-    });
-    store.dispatch(bugAdd);
-    store.dispatch(bugResolve(1));
-    unsubscribe();
+    // const unsubscribe = store.subscribe(() => {
+    //   console.log("store changed");
+    // });
+    store.dispatch(action.bugAdd("Bug 1"));
+    store.dispatch(action.bugAdd("Bug 2"));
+    store.dispatch(action.bugAdd("Bug 3"));
+    store.dispatch(action.bugResolve(1));
+    // unsubscribe();
     // store.dispatch(bugRemove);
   }
 
